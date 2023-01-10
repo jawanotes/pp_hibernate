@@ -3,6 +3,7 @@ package jm.task.core.jdbc.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Util {
     // реализуйте настройку соеденения с БД
@@ -17,6 +18,12 @@ public class Util {
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
         //Class.forName("com.mysql.cj.jdbc.Driver");
         //Class.forName("org.mariadb.jdbc");
-        return DriverManager.getConnection(dbUrl, user, pass);
+        Properties prop = new Properties();
+        prop.put("user", user);
+        prop.put("password", pass);
+        prop.put("characterEncoding", "UTF-8");
+        prop.put("useUnicode", "true");
+        //return DriverManager.getConnection(dbUrl, user, pass);
+        return DriverManager.getConnection(dbUrl, prop);
     }
 }
