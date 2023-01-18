@@ -1,5 +1,10 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+//import java.lang.module.Configuration;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,6 +23,7 @@ public class Util {
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
         //Class.forName("com.mysql.cj.jdbc.Driver");
         //Class.forName("org.mariadb.jdbc");
+
         Properties prop = new Properties();
         prop.put("user", user);
         prop.put("password", pass);
@@ -25,5 +31,20 @@ public class Util {
         prop.put("useUnicode", "true");
         //return DriverManager.getConnection(dbUrl, user, pass);
         return DriverManager.getConnection(dbUrl, prop);
+    }
+
+    public static SessionFactory getSessionFactory() {
+        Properties prop = new Properties();
+        prop.setProperty("hibernate.connection.url", dbUrl);
+        prop.setProperty("dialect", "org.hibernate.dialect.MySQL");
+        prop.setProperty("hibernate.connection.CharSet", "utf8");
+        prop.setProperty("hibernate.connection.characterEncoding", "utf8");
+        prop.setProperty("hibernate.connection.useUnicode", "true");
+
+        prop.setProperty("hibernate.connection.username", user);
+        prop.setProperty("hibernate.connection.password", pass);
+        //prop.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
+
+        return new Configuration().addProperties(prop).addAnnotatedClass(User.class).buildSessionFactory();
     }
 }
