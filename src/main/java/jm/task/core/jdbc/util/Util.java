@@ -12,12 +12,8 @@ import java.util.Properties;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    //private static String user = "adminer";
     private static final String user = "debian-sys-maint";
-    //private static String pass = "adminerpass";
     private static final String pass = "S9cuWHbN5w8SCIDL";
-    //private String db = "pp113";
-    //private static String dbUrl = "jdbc:mysql://192.168.88.110:3306/pp113";
     private static final String dbUrl = "jdbc:mysql://localhost:3306/pp113";
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
@@ -40,6 +36,7 @@ public class Util {
         prop.setProperty("hibernate.connection.CharSet", "utf8");
         prop.setProperty("hibernate.connection.characterEncoding", "utf8");
         prop.setProperty("hibernate.connection.useUnicode", "true");
+        prop.setProperty("hibernate.connection.autocommit", "false");
 
         prop.setProperty("hibernate.connection.username", user);
         prop.setProperty("hibernate.connection.password", pass);
